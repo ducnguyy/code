@@ -134,14 +134,14 @@ TRAINER=Doggotrainer().float().to(device="cuda")
 loss_criterion = nn.CrossEntropyLoss()
 optimizer= torch.optim.Adam(TRAINER.parameters(),lr=0.001)
 #start training the model
-for epoch in range(5):    
+for epoch in range(23):    
     for X,y in dataset_loader:
         #print(X.shape)
         #move data to cuda for operating
         X=X.to(device="cuda")
         y=y.to(device="cuda")
         predict=TRAINER(X.float())
-        print("predict has shape:",predict.shape,"while y true has shape:",y.shape)
+        #print("predict has shape:",predict.shape,"while y true has shape:",y.shape)
         #cast long type for y because error
         loss=loss_criterion(predict,y.long())
         optimizer.zero_grad()
@@ -154,8 +154,15 @@ testset=dog_cat(root_dir_true,train=False)
 dataset_loader=torch.utils.data.DataLoader(testset,batch_size=40,shuffle=True,num_workers=4)
 TRAINER.eval()
 with torch.no_grad():
+    total_correct = 0
+    total_predictions = 0
     for X_test,y_test in dataset_loader:
         X_test=X_test.to(device="cuda")
         y_test=y_test.to(device="cuda")
         predict=TRAINER(X_test.float())
-        print(predict)
+        _, prediction = predict.max(1)
+        total_correct += (y_test==prediction).sum()
+        total_predictions +=  prediction.size(0)
+        #print(predict)
+TRAINER.train()    
+print(f"Accuracy : {float(total_correct/total_predictions)*100:.2f}")
