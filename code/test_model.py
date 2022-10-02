@@ -162,7 +162,7 @@ for epoch in range(23):
         loss.backward()
         optimizer.step()
     print(f"Loss for current epoch",epoch,":",loss)
-print(f"Accuracy on test set : {float(total_correct/total_predictions)*100:.2f}")
+print(f"Accuracy on train set : {float(total_correct/total_predictions)*100:.2f}")
 #now try it on the test set
 testset=dog_cat(root_dir_true,train=False)
 dataset_loader=torch.utils.data.DataLoader(testset,batch_size=40,shuffle=True,num_workers=4)
