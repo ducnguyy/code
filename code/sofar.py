@@ -11,7 +11,7 @@ def unpickle(file):
         dict = pickle.load(fo, encoding='bytes')
     return dict
 #prepare directories for all files
-root_cifar="/home/tkdc/chogit/code/data/cifar-100-python/"
+root_cifar="/home/tkdc/chogit/dataset/cifar-100-python/"
 root_train=root_cifar+"train"
 root_test=root_cifar+"test"
 root_meta=root_cifar+"meta"
@@ -74,12 +74,12 @@ b=identify_superclass_labels_case(6)
 c=merge_class_labels_case(a,b)
 
 #test:
-#yo=655
-#image=X_train[c[yo]]
-#plt.imshow(image) 
-#plt.title("Coarse Label Name:{} \n Fine Label Name:{}"
-#          .format(superclass_name[superclass_label[c[yo]]], class_name[class_label[c[yo]]]))
-#plt.show() 
+yo=655
+image=X_train[c[yo]]
+plt.imshow(image) 
+plt.title("Coarse Label Name:{} \n Fine Label Name:{}"
+          .format(superclass_name[superclass_label[c[yo]]], class_name[class_label[c[yo]]]))
+plt.show() 
 
 
 
